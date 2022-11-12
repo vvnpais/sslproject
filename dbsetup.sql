@@ -23,6 +23,6 @@ CREATE TABLE IF NOT EXISTS `aeon`.`posts` (
 	`post_id` INT(11) NOT NULL AUTO_INCREMENT,
 	`user_id` INT(11) NOT NULL,
 	`likes` INT(11) NOT NULL,
-	`text_content` VARCHAR(8000),
-	`img_content` VARCHAR(400),
+	`text_content` VARCHAR(8000) NOT NULL,
+	`img_content` VARCHAR(400) NOT NULL,
 	PRIMARY KEY (`post_id`)) ENGINE=InnoDB;
