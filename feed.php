@@ -13,6 +13,49 @@ if (!isset($_SESSION['unique_id'])) {
   <title>Feed</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+<style>
+.dropbtn {
+  display:flex;
+  padding: 32px;
+  font-family: 'roboto';
+  font-size: 2.35rem;
+  color: gray;
+  border: none;
+  box-sizing: border-box;
+  background-color:white;
+}
+.dropbtn:hover{
+background-color:#f1f1f1;
+}
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  text-align: center;
+  text-decoration: underline;
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 16.72rem;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+</style>
+
 </head>
 
 <body style="font-family:'roboto';">
@@ -41,10 +84,13 @@ if (!isset($_SESSION['unique_id'])) {
           <h3>POST</h3>
         </a>
       </div>
-      <div class="header__option">
-        <a style="font-family:'roboto';" class="material-icons" href="minigames.php">
-          <h3>MINIGAMES</h3>
-        </a>
+    <div class="dropdown">
+       <button class="dropbtn"><u><strong>MINIGAMES</strong></u></button>
+       <div class="dropdown-content">
+       <a href="baseSnake.html">Snake</a>
+       <a href="baseTetris.html">Tetris</a>
+       <a href=rps.html">Rock Paper Scissors</a>
+       </div> 
       </div>
       <div class="header__option">
         <a style="font-family:'roboto';" class="material-icons" href="mid_logout.php">
