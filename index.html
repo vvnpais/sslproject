@@ -5,9 +5,12 @@
     <title></title>
   </head>
   <body onload="myfunc()">
+    <form id="f2" class="" action="" method="post">
+<input id='b1' type="submit" name="button" onclick="document.getElementById('f2').action='index.php'"></button>
+    </form>
     <script type="text/javascript">
       function myfunc(){
-        window.location='index.php';
+        document.getElementById('b1').click();
       }
     </script>
   </body>
