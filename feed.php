@@ -46,47 +46,7 @@
       </div>
     </div>
     
-    <div class="main__body">
-      <div class="sidebar">
-        <div class="sbr">
-          <img
-            class="user__avatar"
-            src="images/pfp.png"
-            alt=""
-          />
-          <h3>[firstName] [lastName]</h3>
-        </div>
-
-        <div class="sbr">
-          <span class="material-icons"> emoji_flags </span>
-          <h3>Pages</h3>
-        </div>
-
-        <div class="sbr">
-          <span class="material-icons"> people </span>
-          <h3>People</h3>
-        </div>
-
-       <div class="sbr">
-         <span class="material-icons"> chat </span>
-          <h3>Messenger</h3>
-        </div>
-
-        <div class="sbr">
-          <span class="material-icons"> storefront </span>
-         <h3>Marketplace</h3>
-        </div>
-
-         <div class="sbr">
-      <span class="material-icons"> video_library </span>
-          <h3>Videos</h3>
-        </div>
-
-         <div class="sbr">
-          <span class="material-icons"> expand_more </span>
-        <h3>More</h3>
-       </div>
-      </div>
+    
       
       
       <div class="feed">
