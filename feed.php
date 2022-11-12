@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php
+session_start();
+include_once "php/config.php";
+if (!isset($_SESSION['unique_id'])) {
+  header("location: login.php");
+}
+?>
 
 <head>
   <meta charset="UTF-8" />
@@ -12,10 +19,10 @@
   <div class="header">
     <div class="lheader">
       <img src="images/pic1.png" alt="" />
-      <div class="headerinp">
+      <!-- <div class="headerinp">
         <span class="material-icons"> search </span>
         <input type="text" placeholder="Search... " />
-      </div>
+      </div> -->
     </div>
 
     <div class="header__middle">
@@ -48,8 +55,22 @@
 
     <div class="rheader">
       <div class="header__info">
-        <img class="user__avatar" src="images/pfp.png" alt="" />
-        <h3>[firstName] [lastName]</h3>
+
+
+        <?php
+        $sql = mysqli_query($conn, "SELECT * FROM users WHERE unique_id = {$_SESSION['unique_id']}");
+        if (mysqli_num_rows($sql) > 0) {
+          $row = mysqli_fetch_assoc($sql);
+        }
+        ?>
+        <img class="user__avatar" src="php/images/<?php echo $row['img']; ?>" alt="">
+        <div class="details">
+          <h3><?php echo $row['fname'] . " " . $row['lname'] ?></h3>
+        </div>
+
+
+        <!-- <img class="user__avatar" src="images/pfp.png" alt="" />
+        <h3>[firstName] [lastName]</h3> -->
       </div>
     </div>
   </div>
