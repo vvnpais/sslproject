@@ -26,12 +26,15 @@
         <div class="header__option">
           <a class="material-icons" href="users.php"> <h3>CHAT</h3> </a>
          </div>
-        <div class="header__option">
-         <a class="material-icons" href="mid_logout.php"> <h3>LOGOUT</h3> </a>
-            </div>
          <div class="header__option">
           <a class="material-icons" href="postimage.php"> <h3>POST</h3> </a>
        </div>
+       <div class="header__option">
+          <a class="material-icons" href="minigames.php"> <h3>MINIGAMES</h3> </a>
+       </div>
+        <div class="header__option">
+         <a class="material-icons" href="mid_logout.php"> <h3>LOGOUT</h3> </a>
+            </div>
       </div>
 
       <div class="rheader">
@@ -45,10 +48,7 @@
         </div>
       </div>
     </div>
-    
-    
-      
-      
+  
       <div class="feed">
          <div class="messageSender">
          <div class="messageSender__top">
