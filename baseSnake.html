@@ -6,52 +6,51 @@
 
   <body>
 
-    <div id="score">0</div>
-    <canvas id="snakeboard" width="400" height="400"></canvas>
+    <canvas id="snakcanvas" width="800" height="800"></canvas>
 
     <style>
-      #snakeboard {
+      #back{
+        width: 4rem;
+        height: 3rem;
+        color: white;
+        border: 2px solid black;
+        background-color: black;
+        font-size: 1.4rem;
+      }
+      #snakcanvas {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
       }
       #score {
-        font-size: 20px;
+        font-size: 40px;
       }
     </style>
+    <div id="score">0</div>
   </body>
 
   <script>
-    const board_border = 'black';
-    const board_background = "white";
-    const snake_col = 'lightblue';
-    const snake_border = 'darkblue';
-    
+
+
     let snake = [
-      {x: 200, y: 200},
-      {x: 190, y: 200},
-      {x: 180, y: 200},
-      {x: 170, y: 200},
-      {x: 160, y: 200}
+      {x: 120, y: 0},
+      {x: 90, y: 0},
+      {x: 60, y: 0},
+      {x: 30, y: 0},
+      {x: 0, y: 0}
     ]
 
     let score = 0;
-    // True if changing direction
     let changing_direction = false;
-    // Horizontal velocity
     let food_x;
     let food_y;
-    let dx = 10;
-    // Vertical velocity
+    let dx = 30;
     let dy = 0;
-    
-    
-    // Get the canvas element
-    const snakeboard = document.getElementById("snakeboard");
-    // Return a two dimensional drawing context
-    const snakeboard_ctx = snakeboard.getContext("2d");
-    // Start game
+
+    const snakc = document.getElementById("snakcanvas");
+
+    const snakcctx = snakc.getContext("2d");
     main();
 
     gen_food();
@@ -62,87 +61,65 @@ document.addEventListener("DOMContentLoaded", function () {
   newVal.innerHTML = '';
   pTag.appendChild(newVal);
 });
-// Async Tests Example
-/*
-window.onModulesLoaded = new Promise( function( resolve, reject ) {
-  setTimeout(function() {
-    pTag = document.querySelector("div");
-    pTag.innerHTML = '';
-    newVal = document.createElement("p");
-    newVal.innerHTML = 'Hello World';
-    pTag.appendChild(newVal);
-    resolve();
-  }, 100)
-});
-*/
 
     document.addEventListener("keydown", change_direction);
-    
-    // main function called repeatedly to keep the game running
-    function main() {
 
-        if (has_game_ended()) return;
+          snakcctx.fillStyle = '#f1ee8e';
+        snakcctx.strokestyle = '#000000';
+      snakcctx.fillRect(0, 0, 800, 800);
+      snakcctx.strokeRect(0, 0, 800, 800);
+function main() {
+
+        if (snake_killed()) return;
 
         changing_direction = false;
         setTimeout(function onTick() {
         clear_board();
-        drawFood();
+        khana();
         move_snake();
         drawSnake();
         // Repeat
         main();
       }, 100)
     }
-    
-    // draw a border around the canvas
-    function clear_board() {
-      //  Select the colour to fill the drawing
-      snakeboard_ctx.fillStyle = board_background;
-      //  Select the colour for the border of the canvas
-      snakeboard_ctx.strokestyle = board_border;
-      // Draw a "filled" rectangle to cover the entire canvas
-      snakeboard_ctx.fillRect(0, 0, snakeboard.width, snakeboard.height);
-      // Draw a "border" around the entire canvas
-      snakeboard_ctx.strokeRect(0, 0, snakeboard.width, snakeboard.height);
+    function khana() {
+      snakcctx.fillStyle = '#ff4122';
+      snakcctx.strokestyle = '#ffc9bb';
+      snakcctx.fillRect(food_x, food_y, 30, 30);
+      snakcctx.strokeRect(food_x, food_y, 30, 30);
     }
-    
+
+    function clear_board() {
+
+      snakcctx.fillStyle = '#f1ee8e';
+    snakcctx.strokestyle = '#000000';
+  snakcctx.fillRect(0, 0, 800, 800);
+  snakcctx.strokeRect(0, 0, 800, 800);
+    }
 
 
-    // Draw the snake on the canvas
     function drawSnake() {
-      // Draw each part
       snake.forEach(drawSnakePart)
     }
 
-    function drawFood() {
-      snakeboard_ctx.fillStyle = 'lightgreen';
-      snakeboard_ctx.strokestyle = 'darkgreen';
-      snakeboard_ctx.fillRect(food_x, food_y, 10, 10);
-      snakeboard_ctx.strokeRect(food_x, food_y, 10, 10);
-    }
-    
-    // Draw one snake part
+
     function drawSnakePart(snakePart) {
+      snakcctx.fillStyle ='#08f26e';
+      snakcctx.strokestyle = '#06a94d';
 
-      // Set the colour of the snake part
-      snakeboard_ctx.fillStyle = snake_col;
-      // Set the border colour of the snake part
-      snakeboard_ctx.strokestyle = snake_border;
-      // Draw a "filled" rectangle to represent the snake part at the coordinates
-      // the part is located
-      snakeboard_ctx.fillRect(snakePart.x, snakePart.y, 10, 10);
+      snakcctx.fillRect(snakePart.x, snakePart.y, 30, 30);
       // Draw a border around the snake part
-      snakeboard_ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
+      snakcctx.strokeRect(snakePart.x, snakePart.y, 30, 30);
     }
 
-    function has_game_ended() {
+    function snake_killed() {
       for (let i = 4; i < snake.length; i++) {
         if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true
       }
       const hitLeftWall = snake[0].x < 0;
-      const hitRightWall = snake[0].x > snakeboard.width - 10;
+      const hitRightWall = snake[0].x > 770;
       const hitToptWall = snake[0].y < 0;
-      const hitBottomWall = snake[0].y > snakeboard.height - 10;
+      const hitBottomWall = snake[0].y > 770;
       return hitLeftWall || hitRightWall || hitToptWall || hitBottomWall
     }
 
@@ -151,11 +128,8 @@ window.onModulesLoaded = new Promise( function( resolve, reject ) {
     }
 
     function gen_food() {
-      // Generate a random number the food x-coordinate
-      food_x = random_food(0, snakeboard.width - 10);
-      // Generate a random number for the food y-coordinate
-      food_y = random_food(0, snakeboard.height - 10);
-      // if the new food location is where the snake currently is, generate a new food location
+      food_x = random_food(0, 770 - 30);
+      food_y = random_food(0, 770 - 30);
       snake.forEach(function has_snake_eaten_food(part) {
         const has_eaten = part.x == food_x && part.y == food_y;
         if (has_eaten) gen_food();
@@ -163,35 +137,35 @@ window.onModulesLoaded = new Promise( function( resolve, reject ) {
     }
 
     function change_direction(event) {
-      const LEFT_KEY = 37;
-      const RIGHT_KEY = 39;
-      const UP_KEY = 38;
-      const DOWN_KEY = 40;
-      
+      const turnleft = 37;
+      const right = 39;
+      const up = 38;
+      const niiche = 40;
+
     // Prevent the snake from reversing
-    
+
       if (changing_direction) return;
       changing_direction = true;
-      const keyPressed = event.keyCode;
-      const goingUp = dy === -10;
-      const goingDown = dy === 10;
-      const goingRight = dx === 10;
-      const goingLeft = dx === -10;
-      if (keyPressed === LEFT_KEY && !goingRight) {
-        dx = -10;
+      const pushkey = event.keyCode;
+      const yveloneg = dy === -30;
+      const yvelopos = dy === 30;
+      const xvelopos = dx === 30;
+      const xveloneg = dx === -30;
+      if (pushkey === turnleft && !xvelopos) {
+        dx = -30;
         dy = 0;
       }
-      if (keyPressed === UP_KEY && !goingDown) {
+      if (pushkey === up && !yvelopos) {
         dx = 0;
-        dy = -10;
+        dy = -30;
       }
-      if (keyPressed === RIGHT_KEY && !goingLeft) {
-        dx = 10;
+      if (pushkey === right && !xveloneg) {
+        dx = 30;
         dy = 0;
       }
-      if (keyPressed === DOWN_KEY && !goingUp) {
+      if (pushkey === niiche && !yveloneg) {
         dx = 0;
-        dy = 10;
+        dy = 30;
       }
     }
 
@@ -203,7 +177,7 @@ window.onModulesLoaded = new Promise( function( resolve, reject ) {
       const has_eaten_food = snake[0].x === food_x && snake[0].y === food_y;
       if (has_eaten_food) {
         // Increase score
-        score += 10;
+        score += 100;
         // Display score on screen
         document.getElementById('score').innerHTML = score;
         // Generate new food location
@@ -213,6 +187,9 @@ window.onModulesLoaded = new Promise( function( resolve, reject ) {
         snake.pop();
       }
     }
-    
+
   </script>
+  <form class="" id="f1" action="" method="post">
+    <input id='back' type="submit" name="" value="Back" onclick="document.getElementById('f1').action='feed.php'">
+  </form>
 </html>
